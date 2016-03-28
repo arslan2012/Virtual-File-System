@@ -4,9 +4,10 @@
 //
 //  Created by ئ‍ارسلان ئابلىكىم on 3/17/16.
 //  Copyright © 2016 BUPT. All rights reserved.
-//10
+//
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "main.h"
 #define COMLENTH 10
@@ -210,7 +211,50 @@ enum boolean addLeaf(struct dir * thisdir,char * arg){
     return true;
 }
 enum boolean removeLeaf(struct dir * thisdir,char * arg){
-    return true;
+    if (ifdir(arg)){
+        struct dir * tmp = thisdir->childDir;
+        if (tmp == NULL){
+            return false;
+        }else {
+            if (strcmp(tmp->dirname,arg)==0){
+                struct dir * tmp2 = tmp->nextDir;
+                free(thisdir->childDir);
+                thisdir->childDir=tmp2;
+                return true;
+            }else
+            while(tmp->nextDir != NULL){
+                if (strcmp(tmp->nextDir->dirname,arg)==0){
+                    struct dir * tmp2 = tmp->nextDir->nextDir;
+                    free(tmp->nextDir);
+                    tmp->nextDir=tmp2;
+                    return true;
+                }
+                tmp = tmp->nextDir;
+            }
+        }
+    }else {
+        struct vfile * tmp = thisdir->files;
+        if (tmp == NULL){
+            return false;
+        }else {
+            if (strcmp(tmp->name,arg)==0){
+                struct vfile * tmp2 = tmp->nextFileInThisDir;
+                free(thisdir->files);
+                thisdir->files=tmp2;
+                return true;
+            }else
+            while(tmp->nextFileInThisDir != NULL){
+                if (strcmp(tmp->nextFileInThisDir->name,arg)==0){
+                    struct vfile * tmp2 = tmp->nextFileInThisDir->nextFileInThisDir;
+                    free(tmp->nextFileInThisDir);
+                    tmp->nextFileInThisDir=tmp2;
+                    return true;
+                }
+                tmp = tmp->nextFileInThisDir;
+            }
+        }
+    }
+    return false;
 }
 enum boolean mv(char *arg1,char * arg2){
     return true;
