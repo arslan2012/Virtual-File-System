@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		F5D68D061C99CD57009E0D94 /* Virtual File System */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Virtual File System"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5D68D091C99CD57009E0D94 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		F5D68D101C99D04A009E0D94 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				F5D68D091C99CD57009E0D94 /* main.c */,
+				F5D68D101C99D04A009E0D94 /* main.h */,
 			);
 			path = "Virtual File System";
 			sourceTree = "<group>";
