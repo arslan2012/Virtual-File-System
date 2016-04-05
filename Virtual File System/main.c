@@ -58,11 +58,12 @@ int main(int argc, const char * argv[]) {
                 perror("Fatal Error");
                 break;
             }
-            MFT->dirname = "/";
-            MFT->childDir = NULL;
-            MFT->parentDir = NULL;
-            MFT->nextDir = NULL;
-            MFT->files = NULL;
+            strcpy(MFT->dirName,"/");
+            MFT->pos = SEEK_SET;
+            MFT->parentDirPos = -1;
+            MFT->childDirPos = -1;
+            MFT->nextDirPos = -1;
+            MFT->filePoses[0] = -1;
             fwrite(MFT,sizeof(struct dir),1,vfs);
             currentDirectory = MFT;
         }else if (strcmp(command, "mount")==0){
@@ -126,46 +127,62 @@ void prepend(char* s, const char* t)
 }
 void printdir(struct dir * thisdir){
     if (thisdir == NULL) return;
-    if (thisdir->dirname == NULL) return;
-    //if (strcmp(thisdir->dirname,"")==0) return;
+    if (thisdir->dirName[0] == '\0') return;
     char* s = malloc(sizeof(char)*100);
-    strcpy(s, thisdir->dirname);
-    struct dir * tmp = thisdir->parentDir;
-    while (tmp != NULL){
-        prepend(s, tmp->dirname);
-        tmp = tmp->parentDir;
+    strcpy(s, thisdir->dirName);
+    if (thisdir->parentDirPos == -1){
+        printf("%s",s);
+        return;
     }
+    fseek ( vfs , thisdir->parentDirPos , SEEK_SET );
+    struct dir * tmp;
+    fread(tmp,sizeof(struct dir),1,vfs);
+    do{
+        prepend(s, tmp->dirName);
+        fseek ( vfs , thisdir->parentDirPos , SEEK_SET );
+        fread(tmp,sizeof(struct dir),1,vfs);
+    }while (tmp->parentDirPos != -1);
     printf("%s",s);
 }
 void showDirectoryTree(struct dir * thisdir){
-    struct dir * tmp = thisdir->childDir;
-    while (tmp != NULL){
-        printf("%s ",tmp->dirname);
-        tmp = tmp->nextDir;
+    struct dir * tmp;
+    if (thisdir->childDirPos != -1) {
+        fseek ( vfs , thisdir->childDirPos , SEEK_SET );
+        fread(tmp,sizeof(struct dir),1,vfs);
+        do{
+            printf("%s ",tmp->dirName);
+            fseek ( vfs , tmp->nextDirPos , SEEK_SET );
+            fread(tmp,sizeof(struct dir),1,vfs);
+        }while (tmp->childDirPos != -1);
     }
-    struct vfile * tmp2 = thisdir->files;
-    while (tmp2 != NULL){
-        printf("%s ",tmp2->name);
-        tmp2 = tmp2->nextFileInThisDir;
+    for (int i = 0;thisdir->filePoses[i] != -1 ; i++) {
+        fseek ( vfs , thisdir->filePoses[i] , SEEK_SET );
+        struct vfile * tmp2;
+        fread(tmp2,sizeof(struct vfile),1,vfs);
+        printf("%s ",tmp2->fileName);
     }
     printf("\n");
 }
 enum boolean setCurrentDirectory(struct dir ** currentDirectory,char * arg){
-//    struct dir MFT;
-//    fseek (vfs, 0, SEEK_SET );
-//    fread(&MFT,sizeof(struct dir),1,vfs);
-//    struct dir * tmp = &MFT;
     if (strcmp(arg, "..")==0){
-        *currentDirectory = (*(currentDirectory))->parentDir;
-        return true;
+        if((*(currentDirectory))->parentDirPos != -1){
+        fseek ( vfs , (*(currentDirectory))->parentDirPos , SEEK_SET );
+            fread(*currentDirectory,sizeof(struct dir),1,vfs);
+            return true;
+        }else return false;
+        
     }
-    struct dir * tmp = (*(currentDirectory))->childDir;
-    while(tmp != NULL){
-        if (strcmp(tmp->dirname,arg)==0){
+    struct dir * tmp;
+    fseek ( vfs , (*(currentDirectory))->childDirPos , SEEK_SET );
+    fread(tmp,sizeof(struct dir),1,vfs);
+    do{
+        if (strcmp(tmp->dirName,arg)==0){
             *currentDirectory = tmp;
             return true;
-        }else tmp = tmp->nextDir;
-    }
+        }
+        fseek ( vfs , tmp->nextDirPos , SEEK_SET );
+        fread(tmp,sizeof(struct dir),1,vfs);
+    }while (tmp->childDirPos != -1);
     return false;
 }
 enum boolean ifdir(char * arg){
@@ -174,86 +191,96 @@ enum boolean ifdir(char * arg){
     if (arg[i-1]=='/') return true;
     else return false;
 }
+int getNewPos(enum boolean iffile){
+    static int lastpos = SEEK_SET + sizeof(struct dir);
+    if (iffile){
+        lastpos += sizeof(struct vfile);
+        return lastpos - sizeof(struct vfile);
+    }else{
+        lastpos += sizeof(struct dir);
+        return lastpos - sizeof(struct dir);
+    }
+}
 enum boolean addLeaf(struct dir * thisdir,char * arg){
     if (ifdir(arg)){
         struct dir * new = malloc(sizeof(struct dir));
-        new->dirname = arg;
-        new->childDir = NULL;
-        new->parentDir = thisdir;
-        new->nextDir = NULL;
-        new->files = NULL;
-        struct dir * tmp = thisdir->childDir;
-        if (tmp == NULL){
-            thisdir->childDir=new;
+        strcpy(new->dirName,arg);
+        new->childDirPos = -1;
+        new->parentDirPos = thisdir->pos;
+        new->nextDirPos = -1;
+        new->filePoses[0] = -1;
+        new->pos = getNewPos(false);
+        fseek ( vfs , new->pos , SEEK_SET );
+        fwrite(new,sizeof(struct dir),1,vfs);
+        if (thisdir->childDirPos == -1){
+            thisdir->childDirPos=new->pos;
         }else {
-            while(tmp->nextDir != NULL){
-                tmp = tmp->nextDir;
+            struct dir * tmp;
+            fseek ( vfs , thisdir->childDirPos , SEEK_SET );
+            fread(tmp,sizeof(struct dir),1,vfs);
+            while(tmp->nextDirPos != -1){
+                fseek ( vfs , tmp->nextDirPos , SEEK_SET );
+                fread(tmp,sizeof(struct dir),1,vfs);
             }
-            tmp->nextDir=new;
+            tmp->nextDirPos=new->pos;
         }
     }else {
         struct vfile * new = malloc(sizeof(struct vfile));
-        new->contentLenth = 0;
-        new->content = NULL;
-        new->name = arg;
-        new->nextFileInThisDir = NULL;
-        
-        struct vfile * tmp = thisdir->files;
-        if (tmp == NULL){
-            thisdir->files=new;
-        }else {
-            while(tmp->nextFileInThisDir != NULL){
-                tmp = tmp->nextFileInThisDir;
-            }
-            tmp->nextFileInThisDir=new;
-        }
+        strcpy(new->fileName,arg);
+        int i;
+        for (i = 0;thisdir->filePoses[i] != -1; i++);
+        int pos = getNewPos(true);
+        fseek ( vfs , pos , SEEK_SET );
+        fwrite(new,sizeof(struct vfile),1,vfs);
+        thisdir->filePoses[i] =pos;
+        thisdir->filePoses[i+1] = -1;
     }
     return true;
 }
 enum boolean removeLeaf(struct dir * thisdir,char * arg){
-    if (ifdir(arg)){
-        struct dir * tmp = thisdir->childDir;
-        if (tmp == NULL){
-            return false;
-        }else {
-            if (strcmp(tmp->dirname,arg)==0){
-                struct dir * tmp2 = tmp->nextDir;
-                free(thisdir->childDir);
-                thisdir->childDir=tmp2;
-                return true;
-            }else
-            while(tmp->nextDir != NULL){
-                if (strcmp(tmp->nextDir->dirname,arg)==0){
-                    struct dir * tmp2 = tmp->nextDir->nextDir;
-                    free(tmp->nextDir);
-                    tmp->nextDir=tmp2;
-                    return true;
-                }
-                tmp = tmp->nextDir;
-            }
-        }
-    }else {
-        struct vfile * tmp = thisdir->files;
-        if (tmp == NULL){
-            return false;
-        }else {
-            if (strcmp(tmp->name,arg)==0){
-                struct vfile * tmp2 = tmp->nextFileInThisDir;
-                free(thisdir->files);
-                thisdir->files=tmp2;
-                return true;
-            }else
-            while(tmp->nextFileInThisDir != NULL){
-                if (strcmp(tmp->nextFileInThisDir->name,arg)==0){
-                    struct vfile * tmp2 = tmp->nextFileInThisDir->nextFileInThisDir;
-                    free(tmp->nextFileInThisDir);
-                    tmp->nextFileInThisDir=tmp2;
-                    return true;
-                }
-                tmp = tmp->nextFileInThisDir;
-            }
-        }
-    }
+//    if (ifdir(arg)){
+//        struct dir * tmp = thisdir->childDir;
+//        if (tmp == NULL){
+//            return false;
+//        }else {
+//            if (strcmp(tmp->dirname,arg)==0){
+//                struct dir * tmp2 = tmp->nextDir;
+//                free(thisdir->childDir);
+//                thisdir->childDir=tmp2;
+//                return true;
+//            }else
+//            while(tmp->nextDir != NULL){
+//                if (strcmp(tmp->nextDir->dirname,arg)==0){
+//                    struct dir * tmp2 = tmp->nextDir->nextDir;
+//                    free(tmp->nextDir);
+//                    tmp->nextDir=tmp2;
+//                    return true;
+//                }
+//                tmp = tmp->nextDir;
+//            }
+//        }
+//    }else {
+//        struct vfile * tmp = thisdir->files;
+//        if (tmp == NULL){
+//            return false;
+//        }else {
+//            if (strcmp(tmp->name,arg)==0){
+//                struct vfile * tmp2 = tmp->nextFileInThisDir;
+//                free(thisdir->files);
+//                thisdir->files=tmp2;
+//                return true;
+//            }else
+//            while(tmp->nextFileInThisDir != NULL){
+//                if (strcmp(tmp->nextFileInThisDir->name,arg)==0){
+//                    struct vfile * tmp2 = tmp->nextFileInThisDir->nextFileInThisDir;
+//                    free(tmp->nextFileInThisDir);
+//                    tmp->nextFileInThisDir=tmp2;
+//                    return true;
+//                }
+//                tmp = tmp->nextFileInThisDir;
+//            }
+//        }
+//    }
     return false;
 }
 enum boolean mv(char *arg1,char * arg2){
