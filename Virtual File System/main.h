@@ -30,6 +30,7 @@ struct dir{
     int filePoses[FILEAMOUNT];
 };
 
+struct dir * getDirectoryByString(char *);
 void prepend(char*, const char*);
 void printdir(struct dir *);
 void showDirectoryTree(struct dir *);

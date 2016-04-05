@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F595A02D1CA922F300F2115C /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F595A02C1CA922F300F2115C /* README.md */; };
 		F5D68D0A1C99CD57009E0D94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D68D091C99CD57009E0D94 /* main.c */; };
 /* End PBXBuildFile section */
 
@@ -123,7 +122,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F595A02D1CA922F300F2115C /* README.md in Sources */,
 				F5D68D0A1C99CD57009E0D94 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
