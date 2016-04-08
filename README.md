@@ -7,3 +7,5 @@ This is a part of School project of the class ***Operating System Concept*** tha
 finished basic create and folder function using linked list.
 ###2016-04-05
 finished basic create mount ls touch rm function using struct and file saving.
+###2016-04-08
+Splited functions into different files.

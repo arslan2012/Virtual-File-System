@@ -8,36 +8,39 @@
 
 #ifndef main_h
 #define main_h
+
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+
 #define NAMELENTH 10
 #define CONTENTLENTH 100
 #define FILEAMOUNT 100
 
-enum boolean
+extern FILE *vfs;
+typedef enum bool
 {
     false,
     true
-};
-struct vfile{
+}bool;
+typedef enum attribute
+{
+    readonly,
+    readwrite,
+}attribute;
+typedef struct vfile{
+    enum attribute attribute;
     char fileContent[CONTENTLENTH];
+    int fileContentLenth;
     char fileName[NAMELENTH];
-};
-struct dir{
+}vfile;
+typedef struct dir{
     char dirName[NAMELENTH];
     int pos;
     int childDirPos;
     int parentDirPos;
     int nextDirPos;
     int filePoses[FILEAMOUNT];
-};
+}dir;
 
-struct dir * getDirectoryByString(char *);
-void prepend(char*, const char*);
-void printdir(struct dir *);
-void showDirectoryTree(struct dir *);
-enum boolean setCurrentDirectory(struct dir **,char *);
-enum boolean ifdir(char *);
-int getNewPos(enum boolean);
-enum boolean addLeaf(struct dir *,char *);
-enum boolean removeLeaf(struct dir *,char *);
-enum boolean mv(char *,char *);
 #endif /* main_h */
