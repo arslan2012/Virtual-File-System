@@ -27,6 +27,7 @@ FILE *vfs;
 
 int main(int argc, const char * argv[]) {
     dir * currentDirectory = malloc(sizeof(dir));
+    const char *invalid_characters = "\\*";
     while (1) {
         char *command=malloc(sizeof(char)*COMLENTH);
         printdir(currentDirectory);
@@ -40,6 +41,7 @@ int main(int argc, const char * argv[]) {
             printf("touch <filename> \t create a new virtual file\n");
             printf("rm <filename> \t delete a virtual file\n");
             printf("mv <filename> <filename> \t rename/move a virtual file\n");
+            printf("open <filename> \t open a virtual file\n");
             printf("exit \t exit this program\n");
         }else if (strcmp(command, "exit")==0){
             fclose(vfs);
@@ -106,6 +108,20 @@ int main(int argc, const char * argv[]) {
         }else if (strcmp(command, "touch")==0){
             char *argument=malloc(sizeof(char)*ARGLENTH);
             scanf("%s",argument);
+            char *c = argument;
+            bool flag = true;
+            while (*c)
+            {
+                if (strchr(invalid_characters, *c))
+                {
+                    printf("Invalid character in name");
+                    flag = false;
+                    break;
+                }
+                
+                c++;
+            }
+            if (flag)
             if (!addLeaf(currentDirectory,argument))
                 printf("ERROR:cannot create\n");
         }else if (strcmp(command, "open")==0){

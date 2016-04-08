@@ -18,24 +18,29 @@ bool openVirtualFile(dir * thisdir,char * arg){
             fread(tmp, sizeof(vfile), 1, vfs);
             if(strcmp(tmp->fileName,arg)==0){
                 //open
-                printf("%s",tmp->fileContent);
-                char input;
-                while ((input=getchar())!=27) {
-                    if (input == 127 || input == 8) {
-                        if (tmp->fileContentLenth>0) {
-                            printf("\b");
-                            tmp->fileContent[tmp->fileContentLenth-1]='\0';
-                            tmp->fileContentLenth -= 1;
+                if(tmp->attribute==readwrite){
+                    printf("%s",tmp->fileContent);
+                    char input;
+                    fflush(stdin);
+                    while ((input=getchar())!=27) {
+                        if (input == '\\') {
+                            if (tmp->fileContentLenth>0) {
+                                printf("\b");
+                                tmp->fileContent[tmp->fileContentLenth-1]='\0';
+                                tmp->fileContentLenth -= 1;
+                            }
+                        }else{
+                            tmp->fileContent[tmp->fileContentLenth]=input;
+                            tmp->fileContentLenth += 1;
+                            tmp->fileContent[tmp->fileContentLenth]='\0';
                         }
-                    }else{
-                        tmp->fileContent[tmp->fileContentLenth]=input;
-                        tmp->fileContentLenth += 1;
-                        tmp->fileContent[tmp->fileContentLenth]='\0';
                     }
+                    fseek ( vfs , thisdir->filePoses[i] , SEEK_SET );
+                    fwrite(tmp,sizeof(vfile),1,vfs);
+                    free(tmp);
+                }else{
+                    printf("%s",tmp->fileContent);
                 }
-                fseek ( vfs , thisdir->filePoses[i] , SEEK_SET );
-                fwrite(tmp,sizeof(vfile),1,vfs);
-                free(tmp);
                 return true;
             }else{
                 free(tmp);
