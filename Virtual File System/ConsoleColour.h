@@ -20,9 +20,9 @@
 #define ConsoleForeBlack "\x1b[30m" //Black
 #define ConsoleForeRed "\x1b[31m" //Red
 #define ConsoleForeGreen "\x1b[32m" //Green
-#define ConsoleForeYello "\x1b[33m" //Yellow
+#define ConsoleForeYellow "\x1b[33m" //Yellow
 #define ConsoleForeBlue "\x1b[34m" //Blue
-#define ConsoleForeMagen "\x1b[35m" //Magenta
+#define ConsoleForeMagenta "\x1b[35m" //Magenta
 #define ConsoleForeCyan "\x1b[36m" //Cyan
 #define ConsoleForeWhite "\x1b[37m" //White
 #define ConsoleForeDefault "\x1b[39m" //Default(foreground color at startup)
@@ -38,9 +38,9 @@
 #define ConsoleBackBlack "\x1b[40m" //Black
 #define ConsoleBackRed "\x1b[41m" //Red
 #define ConsoleBackGreen "\x1b[42m" //Green
-#define ConsoleBackYello "\x1b[43m" //Yellow
+#define ConsoleBackYellow "\x1b[43m" //Yellow
 #define ConsoleBackBlue "\x1b[44m" //Blue
-#define ConsoleBackMagen "\x1b[45m" //Magenta
+#define ConsoleBackMagenta "\x1b[45m" //Magenta
 #define ConsoleBackCyan "\x1b[46m" //Cyan
 #define ConsoleBackWhite "\x1b[47m" //White
 #define ConsoleBackDefault "\x1b[49m" //Default(background color at startup)

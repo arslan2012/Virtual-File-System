@@ -26,7 +26,7 @@ void showDirectoryTree(dir * thisdir){
         vfile * tmp2 = malloc(sizeof(vfile));
         fread(tmp2,sizeof(vfile),1,vfs);
 		if (tmp2->attribute==readonly) {
-			printf(ConsoleForeRed"%s "ConsoleForeDefault,tmp2->fileName);
+			printf(ConsoleForeMagenta"%s "ConsoleForeDefault,tmp2->fileName);
 		}
         else printf("%s ",tmp2->fileName);
         free(tmp2);

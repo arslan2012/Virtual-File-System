@@ -13,4 +13,4 @@ added file attribute, simple file content editing.
 
 *Bug:because getch() doesn't work, used getchar instead in open file function, so i can't get backspace key, used \ key instead.*
 ###2016-05-15
-Improved file attributions
+Improved file attributions,added basic move function.

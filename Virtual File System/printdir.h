@@ -10,7 +10,6 @@
 #define printdir_h
 
 #include "main.h"
-void prepend(char*, const char*);
 void printdir(dir *);
 
 

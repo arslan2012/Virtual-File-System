@@ -58,7 +58,7 @@ bool removeLeaf(dir * thisdir,char * arg){
                 fseek(vfs, thisdir->filePoses[i], SEEK_SET);
                 fread(tmp, sizeof(vfile), 1, vfs);
                 if(strcmp(tmp->fileName,arg)==0){
-                    if (tmp->attribute==readonly) {
+                    if (tmp->attribute==readonly && superuser == 0) {
                         return false;
                     }
                     for(int j=i; thisdir->filePoses[j]!=-1;j++){

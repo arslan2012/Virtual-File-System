@@ -11,5 +11,6 @@
 
 #include "main.h"
 dir * getDirectoryByString(char *);
+vfile * getFileByString(char *);
 
 #endif /* getDirectoryByString_h */
