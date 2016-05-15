@@ -7,6 +7,7 @@
 //
 
 #include "showDirectoryTree.h"
+#include "ConsoleColour.h"
 void showDirectoryTree(dir * thisdir){
     dir * tmp = malloc(sizeof(dir));
     if (thisdir->childDirPos != -1) {
@@ -24,7 +25,10 @@ void showDirectoryTree(dir * thisdir){
         fseek ( vfs , thisdir->filePoses[i] , SEEK_SET );
         vfile * tmp2 = malloc(sizeof(vfile));
         fread(tmp2,sizeof(vfile),1,vfs);
-        printf("%s ",tmp2->fileName);
+		if (tmp2->attribute==readonly) {
+			printf(ConsoleForeRed"%s "ConsoleForeDefault,tmp2->fileName);
+		}
+        else printf("%s ",tmp2->fileName);
         free(tmp2);
     }
     printf("\n");

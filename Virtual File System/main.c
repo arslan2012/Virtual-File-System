@@ -24,14 +24,15 @@
 #define ARGLENTH 50
 
 FILE *vfs;
+int superuser = 0;
 
 int main(int argc, const char * argv[]) {
     dir * currentDirectory = malloc(sizeof(dir));
     const char *invalid_characters = "\\*";
+	const char *root_password = "root";
     while (1) {
         char *command=malloc(sizeof(char)*COMLENTH);
         printdir(currentDirectory);
-        printf(">");
         scanf("%s",command);
         if (strcmp(command, "man")==0) {
             printf("create <filename> \t create a new virtual file system\n");
@@ -46,7 +47,24 @@ int main(int argc, const char * argv[]) {
         }else if (strcmp(command, "exit")==0){
             fclose(vfs);
             break;
-        }else if (strcmp(command, "create")==0){
+        }else if (strcmp(command, "su")==0){
+			char *argument=malloc(sizeof(char)*ARGLENTH);
+			scanf("%s",argument);
+			if (strcmp(argument, "-s")==0) {
+				char *inputpass=malloc(sizeof(char)*COMLENTH);
+				printf("Please input your password:");
+				scanf("%s",inputpass);
+				if (strcmp(inputpass, root_password)==0) {
+					printf("successfully gained root privilage\n");
+					superuser = 1;
+				}else printf("Wrong password!");
+			}else if (strcmp(argument, "-")==0) {
+				printf("successfully returned to normal user\n");
+				superuser = 0;
+			}else {
+				printf("sorry that user doesn't exist");
+			}
+		}else if (strcmp(command, "create")==0){
             char *argument=malloc(sizeof(char)*ARGLENTH);
             scanf("%s",argument);
             if( (vfs = fopen(argument, "w+b")) == NULL ) {
@@ -89,61 +107,64 @@ int main(int argc, const char * argv[]) {
                 perror("Fatal Error");
                 fclose(vfs);
             }
-        }else if (strcmp(command, "ls")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%99[^\n]%*c",argument);
-            if (strcmp(argument,"")==0) {
-                showDirectoryTree(currentDirectory);
-            }else{
-                dir * pointedDir = getDirectoryByString(argument+1);
-                if (pointedDir != NULL)
-                    showDirectoryTree(pointedDir);
-                else printf("The directory you pointed doesn't exist\n");
-            }
-        }else if (strcmp(command, "cd")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            if (!setCurrentDirectory(&currentDirectory,argument))
-                printf("ERROR:directory doesn't exist\n");
-        }else if (strcmp(command, "touch")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            char *c = argument;
-            bool flag = true;
-            while (*c)
-            {
-                if (strchr(invalid_characters, *c))
-                {
-                    printf("Invalid character in name");
-                    flag = false;
-                    break;
-                }
-                
-                c++;
-            }
-            if (flag)
-            if (!addLeaf(currentDirectory,argument))
-                printf("ERROR:cannot create\n");
-        }else if (strcmp(command, "open")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            if (!openVirtualFile(currentDirectory,argument))
-                printf("ERROR:open failed\n");
-        }else if (strcmp(command, "rm")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            if (!removeLeaf(currentDirectory,argument))
-                printf("ERROR:cannot remove\n");
-        }else if (strcmp(command, "mv")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            char *argument2=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument2);
-            if (!mv(argument,argument2))
-            printf("ERROR: There is a file with same name\n");
-        }else {
-            printf("%s",command);
-            printf(":Unknown command!\n");
+		}else if(vfs!=NULL){
+			if (strcmp(command, "ls")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%99[^\n]%*c",argument);
+				if (strcmp(argument,"")==0) {
+					showDirectoryTree(currentDirectory);
+				}else{
+					dir * pointedDir = getDirectoryByString(argument+1);
+					if (pointedDir != NULL)
+						showDirectoryTree(pointedDir);
+					else printf("The directory you pointed doesn't exist\n");
+				}
+			}else if (strcmp(command, "cd")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument);
+				if (!setCurrentDirectory(&currentDirectory,argument))
+					printf("ERROR:directory doesn't exist\n");
+			}else if (strcmp(command, "touch")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument);
+				char *c = argument;
+				bool flag = true;
+				while (*c)
+				{
+					if (strchr(invalid_characters, *c))
+					{
+						printf("Invalid character in name");
+						flag = false;
+						break;
+					}
+					
+					c++;
+				}
+				if (flag)
+					if (!addLeaf(currentDirectory,argument))
+						printf("ERROR:cannot create\n");
+			}else if (strcmp(command, "open")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument);
+				if (!openVirtualFile(currentDirectory,argument))
+					printf("ERROR:open failed\n");
+			}else if (strcmp(command, "rm")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument);
+				if (!removeLeaf(currentDirectory,argument))
+					printf("ERROR:cannot remove\n");
+			}else if (strcmp(command, "mv")==0){
+				char *argument=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument);
+				char *argument2=malloc(sizeof(char)*ARGLENTH);
+				scanf("%s",argument2);
+				if (!mv(argument,argument2))
+					printf("ERROR: There is a file with same name\n");
+			}else {
+				printf("%s:Unknown command!\n",command);
+			}
+		}else {
+            printf("no file system mounted!\n");
         }
     }
     return 0;

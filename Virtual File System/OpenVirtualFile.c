@@ -18,18 +18,17 @@ bool openVirtualFile(dir * thisdir,char * arg){
             fread(tmp, sizeof(vfile), 1, vfs);
             if(strcmp(tmp->fileName,arg)==0){
                 //open
-                if(tmp->attribute==readwrite){
+                if(tmp->attribute == readwrite || superuser == 1){
                     printf("%s",tmp->fileContent);
                     char input;
                     fflush(stdin);
                     while ((input=getchar())!=27) {
                         if (input == '\\') {
                             if (tmp->fileContentLenth>0) {
-                                printf("\b");
                                 tmp->fileContent[tmp->fileContentLenth-1]='\0';
                                 tmp->fileContentLenth -= 1;
                             }
-                        }else{
+                        }else if (input != '\n'){
                             tmp->fileContent[tmp->fileContentLenth]=input;
                             tmp->fileContentLenth += 1;
                             tmp->fileContent[tmp->fileContentLenth]='\0';

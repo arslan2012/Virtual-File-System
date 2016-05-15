@@ -51,13 +51,13 @@ bool addLeaf(dir * thisdir,char * arg){
         }
         free(new);
     }else {
-        char *argument=malloc(sizeof(char)*2);
+        char *argument=malloc(sizeof(char)*3);
         scanf("%99[^\n]%*c",argument);
         vfile * new = malloc(sizeof(vfile));
         strcpy(new->fileName,arg);
         new->fileContentLenth=0;
         new->fileContent[0]='\0';
-        if (strcmp(argument,"-r")==0)
+        if (strcmp(argument," -r")==0)
             new->attribute=readonly;
         else
             new->attribute=readwrite;

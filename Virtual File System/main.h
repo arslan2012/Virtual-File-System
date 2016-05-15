@@ -18,6 +18,7 @@
 #define FILEAMOUNT 100
 
 extern FILE *vfs;
+extern int superuser;
 typedef enum bool
 {
     false,
@@ -30,9 +31,9 @@ typedef enum attribute
 }attribute;
 typedef struct vfile{
     enum attribute attribute;
-    char fileContent[CONTENTLENTH];
     int fileContentLenth;
     char fileName[NAMELENTH];
+	char fileContent[CONTENTLENTH];
 }vfile;
 typedef struct dir{
     char dirName[NAMELENTH];

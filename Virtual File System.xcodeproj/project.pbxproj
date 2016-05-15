@@ -51,6 +51,7 @@
 		F5271F271CB504BD0028EBFD /* removeLeaf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = removeLeaf.h; sourceTree = "<group>"; };
 		F5271F291CB504CB0028EBFD /* mv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mv.c; sourceTree = "<group>"; };
 		F5271F2A1CB504CB0028EBFD /* mv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mv.h; sourceTree = "<group>"; };
+		F52E08C81CE82C3F0090FB90 /* ConsoleColour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsoleColour.h; sourceTree = "<group>"; };
 		F595A02C1CA922F300F2115C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F5B2D0531CB73F12004F64BD /* OpenVirtualFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpenVirtualFile.c; sourceTree = "<group>"; };
 		F5B2D0541CB73F12004F64BD /* OpenVirtualFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVirtualFile.h; sourceTree = "<group>"; };
@@ -70,6 +71,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F576EBF21CE1E86F002B9821 /* CoreFunc */ = {
+			isa = PBXGroup;
+			children = (
+				F5271F231CB504AD0028EBFD /* addLeaf.c */,
+				F5B2D0531CB73F12004F64BD /* OpenVirtualFile.c */,
+				F5B2D0541CB73F12004F64BD /* OpenVirtualFile.h */,
+				F5271F111CB5015A0028EBFD /* getDirectoryByString.c */,
+				F5271F201CB5049B0028EBFD /* getNewPos.c */,
+				F5271F1D1CB5048B0028EBFD /* ifdir.c */,
+				F5271F291CB504CB0028EBFD /* mv.c */,
+				F5271F141CB5030D0028EBFD /* printdir.c */,
+				F5271F261CB504BD0028EBFD /* removeLeaf.c */,
+				F5271F1A1CB504770028EBFD /* setCurrentDirectory.c */,
+				F5271F171CB5036C0028EBFD /* showDirectoryTree.c */,
+				F5271F241CB504AD0028EBFD /* addLeaf.h */,
+				F5271F121CB5015A0028EBFD /* getDirectoryByString.h */,
+				F5271F211CB5049B0028EBFD /* getNewPos.h */,
+				F5271F1E1CB5048B0028EBFD /* ifdir.h */,
+				F5271F2A1CB504CB0028EBFD /* mv.h */,
+				F5271F151CB5030D0028EBFD /* printdir.h */,
+				F5271F271CB504BD0028EBFD /* removeLeaf.h */,
+				F5271F1B1CB504770028EBFD /* setCurrentDirectory.h */,
+				F5271F181CB5036C0028EBFD /* showDirectoryTree.h */,
+			);
+			name = CoreFunc;
+			sourceTree = "<group>";
+		};
 		F5D68CFD1C99CD57009E0D94 = {
 			isa = PBXGroup;
 			children = (
@@ -90,28 +118,10 @@
 		F5D68D081C99CD57009E0D94 /* Virtual File System */ = {
 			isa = PBXGroup;
 			children = (
-				F5271F231CB504AD0028EBFD /* addLeaf.c */,
-				F5B2D0531CB73F12004F64BD /* OpenVirtualFile.c */,
-				F5B2D0541CB73F12004F64BD /* OpenVirtualFile.h */,
-				F5271F111CB5015A0028EBFD /* getDirectoryByString.c */,
-				F5271F201CB5049B0028EBFD /* getNewPos.c */,
-				F5271F1D1CB5048B0028EBFD /* ifdir.c */,
+				F576EBF21CE1E86F002B9821 /* CoreFunc */,
 				F5D68D091C99CD57009E0D94 /* main.c */,
-				F5271F291CB504CB0028EBFD /* mv.c */,
-				F5271F141CB5030D0028EBFD /* printdir.c */,
-				F5271F261CB504BD0028EBFD /* removeLeaf.c */,
-				F5271F1A1CB504770028EBFD /* setCurrentDirectory.c */,
-				F5271F171CB5036C0028EBFD /* showDirectoryTree.c */,
-				F5271F241CB504AD0028EBFD /* addLeaf.h */,
-				F5271F121CB5015A0028EBFD /* getDirectoryByString.h */,
-				F5271F211CB5049B0028EBFD /* getNewPos.h */,
-				F5271F1E1CB5048B0028EBFD /* ifdir.h */,
 				F5D68D101C99D04A009E0D94 /* main.h */,
-				F5271F2A1CB504CB0028EBFD /* mv.h */,
-				F5271F151CB5030D0028EBFD /* printdir.h */,
-				F5271F271CB504BD0028EBFD /* removeLeaf.h */,
-				F5271F1B1CB504770028EBFD /* setCurrentDirectory.h */,
-				F5271F181CB5036C0028EBFD /* showDirectoryTree.h */,
+				F52E08C81CE82C3F0090FB90 /* ConsoleColour.h */,
 			);
 			path = "Virtual File System";
 			sourceTree = "<group>";

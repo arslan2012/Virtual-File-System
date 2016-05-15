@@ -10,4 +10,7 @@ finished basic create mount ls touch rm function using struct and file saving.
 ###2016-04-08
 Splited functions into different files.
 added file attribute, simple file content editing.
+
 *Bug:because getch() doesn't work, used getchar instead in open file function, so i can't get backspace key, used \ key instead.*
+###2016-05-15
+Improved file attributions
