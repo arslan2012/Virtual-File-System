@@ -15,3 +15,4 @@ added file attribute, simple file content editing.
 Improved file attributions,added basic move function.
 ###2016-05-17
 minor bug fix,preparing the code for module merging.
+optimized main.c and file handling

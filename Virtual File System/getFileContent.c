@@ -9,6 +9,10 @@
 #include "getFileContent.h"
 #include "getDirectoryByString.h"
 char * getFileContent(char * fullFileName){
+    if(strcmp(fileName,"\0")!=0){
+    vfs = fopen(fileName, "r+b");
     vfile * target = getFileByString(fullFileName);
-    return target->fileContent;
+        fclose(vfs);
+        return target->fileContent;
+    }else return "\0";
 }

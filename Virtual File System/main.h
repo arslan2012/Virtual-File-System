@@ -18,6 +18,7 @@
 #define FILEAMOUNT 100
 
 extern FILE *vfs;
+extern char fileName[10];
 extern int superuser;
 typedef enum bool
 {

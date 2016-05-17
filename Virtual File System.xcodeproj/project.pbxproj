@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9538E8E01CEB282F00A8D983 /* getFileContent.c in Sources */ = {isa = PBXBuildFile; fileRef = 9538E8DE1CEB282F00A8D983 /* getFileContent.c */; };
 		9538E8E31CEB294300A8D983 /* setFileContent.c in Sources */ = {isa = PBXBuildFile; fileRef = 9538E8E11CEB294300A8D983 /* setFileContent.c */; };
+		9538E8E61CEB2F0C00A8D983 /* checkCommand.c in Sources */ = {isa = PBXBuildFile; fileRef = 9538E8E41CEB2F0C00A8D983 /* checkCommand.c */; };
 		F5271F131CB5015A0028EBFD /* getDirectoryByString.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F111CB5015A0028EBFD /* getDirectoryByString.c */; };
 		F5271F161CB5030D0028EBFD /* printdir.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F141CB5030D0028EBFD /* printdir.c */; };
 		F5271F191CB5036C0028EBFD /* showDirectoryTree.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F171CB5036C0028EBFD /* showDirectoryTree.c */; };
@@ -39,6 +40,8 @@
 		9538E8DF1CEB282F00A8D983 /* getFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getFileContent.h; sourceTree = "<group>"; };
 		9538E8E11CEB294300A8D983 /* setFileContent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = setFileContent.c; sourceTree = "<group>"; };
 		9538E8E21CEB294300A8D983 /* setFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setFileContent.h; sourceTree = "<group>"; };
+		9538E8E41CEB2F0C00A8D983 /* checkCommand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = checkCommand.c; sourceTree = "<group>"; };
+		9538E8E51CEB2F0C00A8D983 /* checkCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checkCommand.h; sourceTree = "<group>"; };
 		F5271F111CB5015A0028EBFD /* getDirectoryByString.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getDirectoryByString.c; sourceTree = "<group>"; };
 		F5271F121CB5015A0028EBFD /* getDirectoryByString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getDirectoryByString.h; sourceTree = "<group>"; };
 		F5271F141CB5030D0028EBFD /* printdir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = printdir.c; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 				F5271F271CB504BD0028EBFD /* removeLeaf.h */,
 				F5271F1B1CB504770028EBFD /* setCurrentDirectory.h */,
 				F5271F181CB5036C0028EBFD /* showDirectoryTree.h */,
+				9538E8E41CEB2F0C00A8D983 /* checkCommand.c */,
+				9538E8E51CEB2F0C00A8D983 /* checkCommand.h */,
 			);
 			name = CoreFunc;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9538E8E61CEB2F0C00A8D983 /* checkCommand.c in Sources */,
 				F5271F2B1CB504CB0028EBFD /* mv.c in Sources */,
 				F5271F1F1CB5048B0028EBFD /* ifdir.c in Sources */,
 				F5271F281CB504BD0028EBFD /* removeLeaf.c in Sources */,
