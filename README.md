@@ -14,4 +14,4 @@ added file attribute, simple file content editing.
 ###2016-05-15
 Improved file attributions,added basic move function.
 ###2016-05-17
-minor bug fix.
+minor bug fix,preparing the code for module merging.

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9538E8E01CEB282F00A8D983 /* getFileContent.c in Sources */ = {isa = PBXBuildFile; fileRef = 9538E8DE1CEB282F00A8D983 /* getFileContent.c */; };
+		9538E8E31CEB294300A8D983 /* setFileContent.c in Sources */ = {isa = PBXBuildFile; fileRef = 9538E8E11CEB294300A8D983 /* setFileContent.c */; };
 		F5271F131CB5015A0028EBFD /* getDirectoryByString.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F111CB5015A0028EBFD /* getDirectoryByString.c */; };
 		F5271F161CB5030D0028EBFD /* printdir.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F141CB5030D0028EBFD /* printdir.c */; };
 		F5271F191CB5036C0028EBFD /* showDirectoryTree.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F171CB5036C0028EBFD /* showDirectoryTree.c */; };
@@ -33,6 +35,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9538E8DE1CEB282F00A8D983 /* getFileContent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getFileContent.c; sourceTree = "<group>"; };
+		9538E8DF1CEB282F00A8D983 /* getFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getFileContent.h; sourceTree = "<group>"; };
+		9538E8E11CEB294300A8D983 /* setFileContent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = setFileContent.c; sourceTree = "<group>"; };
+		9538E8E21CEB294300A8D983 /* setFileContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setFileContent.h; sourceTree = "<group>"; };
 		F5271F111CB5015A0028EBFD /* getDirectoryByString.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getDirectoryByString.c; sourceTree = "<group>"; };
 		F5271F121CB5015A0028EBFD /* getDirectoryByString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getDirectoryByString.h; sourceTree = "<group>"; };
 		F5271F141CB5030D0028EBFD /* printdir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = printdir.c; sourceTree = "<group>"; };
@@ -71,6 +77,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9538E8DD1CEB27FB00A8D983 /* ReturningFuncForModuleMerging */ = {
+			isa = PBXGroup;
+			children = (
+				9538E8DE1CEB282F00A8D983 /* getFileContent.c */,
+				9538E8DF1CEB282F00A8D983 /* getFileContent.h */,
+				9538E8E11CEB294300A8D983 /* setFileContent.c */,
+				9538E8E21CEB294300A8D983 /* setFileContent.h */,
+			);
+			name = ReturningFuncForModuleMerging;
+			sourceTree = "<group>";
+		};
 		F576EBF21CE1E86F002B9821 /* CoreFunc */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +135,7 @@
 		F5D68D081C99CD57009E0D94 /* Virtual File System */ = {
 			isa = PBXGroup;
 			children = (
+				9538E8DD1CEB27FB00A8D983 /* ReturningFuncForModuleMerging */,
 				F576EBF21CE1E86F002B9821 /* CoreFunc */,
 				F5D68D091C99CD57009E0D94 /* main.c */,
 				F5D68D101C99D04A009E0D94 /* main.h */,
@@ -186,7 +204,9 @@
 				F5271F1F1CB5048B0028EBFD /* ifdir.c in Sources */,
 				F5271F281CB504BD0028EBFD /* removeLeaf.c in Sources */,
 				F5B2D0551CB73F12004F64BD /* OpenVirtualFile.c in Sources */,
+				9538E8E01CEB282F00A8D983 /* getFileContent.c in Sources */,
 				F5271F131CB5015A0028EBFD /* getDirectoryByString.c in Sources */,
+				9538E8E31CEB294300A8D983 /* setFileContent.c in Sources */,
 				F5271F161CB5030D0028EBFD /* printdir.c in Sources */,
 				F5271F251CB504AD0028EBFD /* addLeaf.c in Sources */,
 				F5271F1C1CB504770028EBFD /* setCurrentDirectory.c in Sources */,
