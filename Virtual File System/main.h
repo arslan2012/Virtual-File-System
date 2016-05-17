@@ -1,10 +1,10 @@
-//
-//  main.h
-//  Virtual File System
-//
-//  Created by ئ‍ارسلان ئابلىكىم on 3/17/16.
-//  Copyright © 2016 BUPT. All rights reserved.
-//
+	//
+	//  main.h
+	//  Virtual File System
+	//
+	//  Created by ئ‍ارسلان ئابلىكىم on 3/17/16.
+	//  Copyright © 2016 BUPT. All rights reserved.
+	//
 
 #ifndef main_h
 #define main_h
@@ -21,27 +21,27 @@ extern FILE *vfs;
 extern int superuser;
 typedef enum bool
 {
-    false,
-    true
+	false,
+	true
 }bool;
 typedef enum attribute
 {
-    readonly,
-    readwrite,
+	readonly,
+	readwrite,
 }attribute;
 typedef struct vfile{
-    enum attribute attribute;
-    int fileContentLenth;
-    char fileName[NAMELENTH];
+	enum attribute attribute;
+	int fileContentLenth;
+	char fileName[NAMELENTH];
 	char fileContent[CONTENTLENTH];
 }vfile;
 typedef struct dir{
-    char dirName[NAMELENTH];
-    int pos;
-    int childDirPos;
-    int parentDirPos;
-    int nextDirPos;
-    int filePoses[FILEAMOUNT];
+	char dirName[NAMELENTH];
+	int pos;
+	int childDirPos;
+	int parentDirPos;
+	int nextDirPos;
+	int filePoses[FILEAMOUNT];
 }dir;
 
 #endif /* main_h */

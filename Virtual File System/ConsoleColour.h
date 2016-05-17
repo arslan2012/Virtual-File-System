@@ -9,6 +9,54 @@
 #ifndef ConsoleColour_h
 #define ConsoleColour_h
 
+#ifdef OS_WINDOWS // Disable colouring for windows because windows doesnt support it!
+
+#define ConsoleattributesOff "" //All attributes off(color at startup)
+#define ConsoleBold "" //Bold on(enable foreground intensity)
+#define ConsoleUnderline "" //Underline on
+#define ConsoleBlink "" //Blink on(enable background intensity)
+#define ConsoleBoldOff "" //Bold off(disable foreground intensity)
+#define ConsoleUnderlineOff "" //Underline off
+#define ConsoleBlinkOff "" //Blink off(disable background intensity)
+								   //forground
+#define ConsoleForeBlack "" //Black
+#define ConsoleForeRed "" //Red
+#define ConsoleForeGreen "" //Green
+#define ConsoleForeYellow "" //Yellow
+#define ConsoleForeBlue "" //Blue
+#define ConsoleForeMagenta "" //Magenta
+#define ConsoleForeCyan "" //Cyan
+#define ConsoleForeWhite "" //White
+#define ConsoleForeDefault "" //Default(foreground color at startup)
+#define ConsoleForeLightGray "" //Light Gray
+#define ConsoleForeLightRed "" //Light Red
+#define ConsoleForeLightGreen "" //Light Green
+#define ConsoleForeLightYellow "" //Light Yellow
+#define ConsoleForeLightBlue "" //Light Blue
+#define ConsoleForeLightMagenta "" //Light Magenta
+#define ConsoleForeLightCyan "" //Light Cyan
+#define ConsoleForeLightWhite "" //Light White
+										 //background
+#define ConsoleBackBlack "" //Black
+#define ConsoleBackRed "" //Red
+#define ConsoleBackGreen "" //Green
+#define ConsoleBackYellow "" //Yellow
+#define ConsoleBackBlue "" //Blue
+#define ConsoleBackMagenta "" //Magenta
+#define ConsoleBackCyan "" //Cyan
+#define ConsoleBackWhite "" //White
+#define ConsoleBackDefault "" //Default(background color at startup)
+#define ConsoleBackLightGray "" //Light Gray
+#define ConsoleBackLightRed "" //Light Red
+#define ConsoleBackLightGreen "" //Light Green
+#define ConsoleBackLightYellow "" //Light Yellow
+#define ConsoleBackLightBlue "" //Light Blue
+#define ConsoleBackLightMagenta "" //Light Magenta
+#define ConsoleBackLightCyan "" //Light Cyan
+#define ConsoleBackLightWhite "" //Light White
+
+#else
+
 #define ConsoleattributesOff "\x1b[0m" //All attributes off(color at startup)
 #define ConsoleBold "\x1b[1m" //Bold on(enable foreground intensity)
 #define ConsoleUnderline "\x1b[4m" //Underline on
@@ -34,7 +82,7 @@
 #define ConsoleForeLightMagenta "\x1b[95m" //Light Magenta
 #define ConsoleForeLightCyan "\x1b[96m" //Light Cyan
 #define ConsoleForeLightWhite "\x1b[97m" //Light White
-										//background
+										 //background
 #define ConsoleBackBlack "\x1b[40m" //Black
 #define ConsoleBackRed "\x1b[41m" //Red
 #define ConsoleBackGreen "\x1b[42m" //Green
@@ -52,5 +100,7 @@
 #define ConsoleBackLightMagenta "\x1b[105m" //Light Magenta
 #define ConsoleBackLightCyan "\x1b[106m" //Light Cyan
 #define ConsoleBackLightWhite "\x1b[107m" //Light White
+
+#endif /* if not windows */
 
 #endif /* ConsoleColour_h */

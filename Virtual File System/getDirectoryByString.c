@@ -1,10 +1,10 @@
-//
-//  getDirectoryByString.c
-//  Virtual File System
-//
-//  Created by ئ‍ارسلان ئابلىكىم on 4/6/16.
-//  Copyright © 2016 BUPT. All rights reserved.
-//
+	//
+	//  getDirectoryByString.c
+	//  Virtual File System
+	//
+	//  Created by ئ‍ارسلان ئابلىكىم on 4/6/16.
+	//  Copyright © 2016 BUPT. All rights reserved.
+	//
 
 #include "getDirectoryByString.h"
 
@@ -40,7 +40,7 @@ dir * getDirectoryByString(char * arg){
 			}while (1);
 		}
 	}
-    return tmp;
+	return tmp;
 }
 vfile * getFileByString(char * arg){
 	bool isDirString= (arg[strlen(arg)-1] == '/')?true:false;

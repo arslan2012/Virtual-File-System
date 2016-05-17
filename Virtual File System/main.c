@@ -1,10 +1,10 @@
-//
-//  main.c
-//  Virtual File System
-//
-//  Created by ئ‍ارسلان ئابلىكىم on 3/17/16.
-//  Copyright © 2016 BUPT. All rights reserved.
-//
+	//
+	//  main.c
+	//  Virtual File System
+	//
+	//  Created by ئ‍ارسلان ئابلىكىم on 3/17/16.
+	//  Copyright © 2016 BUPT. All rights reserved.
+	//
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,27 +28,27 @@ FILE *vfs;
 int superuser = 0;
 
 int main(int argc, const char * argv[]) {
-    dir * currentDirectory = malloc(sizeof(dir));
-    const char *invalid_characters = "\\*";
+	dir * currentDirectory = malloc(sizeof(dir));
+	const char *invalid_characters = "\\*";
 	const char *root_password = "root";
-    while (1) {
-        char *command=malloc(sizeof(char)*COMLENTH);
-        printdir(currentDirectory);
-        scanf("%s",command);
-        if (strcmp(command, "man")==0) {
-            printf(ConsoleForeLightBlue"create <filename> \t create a new virtual file system\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"mount <filename> \t mount an existing virtual file system\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"ls <dirname> \t\t show directory structure\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"cd <dirname> \t\t get in the directory\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"touch <filename> \t create a new virtual file\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"rm <filename> \t\t delete a virtual file\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"mv <filename> <filename> rename/move a virtual file\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"open <filename> \t open a virtual file\n"ConsoleForeDefault);
-            printf(ConsoleForeLightBlue"exit \t\t\t exit this program\n"ConsoleForeDefault);
-        }else if (strcmp(command, "exit")==0){
-            fclose(vfs);
-            break;
-        }else if (strcmp(command, "su")==0){
+	while (1) {
+		char *command=malloc(sizeof(char)*COMLENTH);
+		printdir(currentDirectory);
+		scanf("%s",command);
+		if (strcmp(command, "man")==0) {
+			printf(ConsoleForeLightBlue"create <filename> \t create a new virtual file system\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"mount <filename> \t mount an existing virtual file system\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"ls <dirname> \t\t show directory structure\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"cd <dirname> \t\t get in the directory\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"touch <filename> \t create a new virtual file\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"rm <filename> \t\t delete a virtual file\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"mv <filename> <filename> rename/move a virtual file\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"open <filename> \t open a virtual file\n"ConsoleForeDefault);
+			printf(ConsoleForeLightBlue"exit \t\t\t exit this program\n"ConsoleForeDefault);
+		}else if (strcmp(command, "exit")==0){
+			fclose(vfs);
+			break;
+		}else if (strcmp(command, "su")==0){
 			char *argument=malloc(sizeof(char)*ARGLENTH);
 			scanf("%s",argument);
 			if (strcmp(argument, "-s")==0) {
@@ -66,52 +66,52 @@ int main(int argc, const char * argv[]) {
 				printf(ConsoleForeLightRed"sorry that user doesn't exist"ConsoleForeDefault);
 			}
 		}else if (strcmp(command, "create")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            if( (vfs = fopen(argument, "w+b")) == NULL ) {
-                perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
-                break;
-            }
-            dir * MFT = malloc(sizeof(dir));
-            strcpy(MFT->dirName,"/");
-            MFT->pos = sizeof(int);
-            MFT->parentDirPos = -1;
-            MFT->childDirPos = -1;
-            MFT->nextDirPos = -1;
-            MFT->filePoses[0] = -1;
-            int lastpos=sizeof(dir)+sizeof(int);
-            fseek ( vfs , 0, SEEK_SET );
-            fwrite(&lastpos,sizeof(int),1,vfs);
-            fseek ( vfs , sizeof(int) , SEEK_SET );
-            if(fwrite(MFT,sizeof(dir),1,vfs)==1){
-                currentDirectory = MFT;
-            }else{
-                perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
-            }
-        }else if (strcmp(command, "mount")==0){
-            char *argument=malloc(sizeof(char)*ARGLENTH);
-            scanf("%s",argument);
-            dir * MFT = malloc(sizeof(dir));
-            if( (vfs = fopen(argument, "r+b")) == NULL ) {
-                perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
-                break;
-            }
-            fseek ( vfs, sizeof(int), SEEK_SET);
-            if (fread(MFT,sizeof(dir),1,vfs)==1){
-                if (strcmp(MFT->dirName, "/")==0)
-                    currentDirectory = MFT;
-                else{
-                    printf(ConsoleForeLightRed"ERROR:mount failed,dirty file system\n"ConsoleForeDefault);
-                    fclose(vfs);
-                }
-            }else{
-                perror("Fatal Error"ConsoleForeDefault);
-                fclose(vfs);
-            }
+			char *argument=malloc(sizeof(char)*ARGLENTH);
+			scanf("%s",argument);
+			if( (vfs = fopen(argument, "w+b")) == NULL ) {
+				perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+				break;
+			}
+			dir * MFT = malloc(sizeof(dir));
+			strcpy(MFT->dirName,"/");
+			MFT->pos = sizeof(int);
+			MFT->parentDirPos = -1;
+			MFT->childDirPos = -1;
+			MFT->nextDirPos = -1;
+			MFT->filePoses[0] = -1;
+			int lastpos=sizeof(dir)+sizeof(int);
+			fseek ( vfs , 0, SEEK_SET );
+			fwrite(&lastpos,sizeof(int),1,vfs);
+			fseek ( vfs , sizeof(int) , SEEK_SET );
+			if(fwrite(MFT,sizeof(dir),1,vfs)==1){
+				currentDirectory = MFT;
+			}else{
+				perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+			}
+		}else if (strcmp(command, "mount")==0){
+			char *argument=malloc(sizeof(char)*ARGLENTH);
+			scanf("%s",argument);
+			dir * MFT = malloc(sizeof(dir));
+			if( (vfs = fopen(argument, "r+b")) == NULL ) {
+				perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+				break;
+			}
+			fseek ( vfs, sizeof(int), SEEK_SET);
+			if (fread(MFT,sizeof(dir),1,vfs)==1){
+				if (strcmp(MFT->dirName, "/")==0)
+					currentDirectory = MFT;
+				else{
+					printf(ConsoleForeLightRed"ERROR:mount failed,dirty file system\n"ConsoleForeDefault);
+					fclose(vfs);
+				}
+			}else{
+				perror("Fatal Error"ConsoleForeDefault);
+				fclose(vfs);
+			}
 		}else if(vfs!=NULL){
 			if (strcmp(command, "ls")==0){
 				char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%99[^\n]%*c",argument);
+				scanf("%99[^\n]%*c",argument);
 				if (strcmp(argument,"")==0) {
 					showDirectoryTree(currentDirectory);
 				}else{
@@ -165,8 +165,8 @@ int main(int argc, const char * argv[]) {
 				printf(ConsoleForeLightRed"%s:Unknown command!\n",command);
 			}
 		}else {
-            printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-        }
-    }
-    return 0;
+			printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+		}
+	}
+	return 0;
 }
