@@ -19,6 +19,7 @@
 		F5271F251CB504AD0028EBFD /* addLeaf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F231CB504AD0028EBFD /* addLeaf.c */; };
 		F5271F281CB504BD0028EBFD /* removeLeaf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F261CB504BD0028EBFD /* removeLeaf.c */; };
 		F5271F2B1CB504CB0028EBFD /* mv.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F291CB504CB0028EBFD /* mv.c */; };
+		F57F14061CECCE9C00D006B4 /* initSystemFile.c in Sources */ = {isa = PBXBuildFile; fileRef = F57F14041CECCE9C00D006B4 /* initSystemFile.c */; };
 		F5B2D0551CB73F12004F64BD /* OpenVirtualFile.c in Sources */ = {isa = PBXBuildFile; fileRef = F5B2D0531CB73F12004F64BD /* OpenVirtualFile.c */; };
 		F5D68D0A1C99CD57009E0D94 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F5D68D091C99CD57009E0D94 /* main.c */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,8 @@
 		F5271F291CB504CB0028EBFD /* mv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mv.c; sourceTree = "<group>"; };
 		F5271F2A1CB504CB0028EBFD /* mv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mv.h; sourceTree = "<group>"; };
 		F52E08C81CE82C3F0090FB90 /* ConsoleColour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConsoleColour.h; sourceTree = "<group>"; };
+		F57F14041CECCE9C00D006B4 /* initSystemFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = initSystemFile.c; sourceTree = "<group>"; };
+		F57F14051CECCE9C00D006B4 /* initSystemFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = initSystemFile.h; sourceTree = "<group>"; };
 		F595A02C1CA922F300F2115C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F5B2D0531CB73F12004F64BD /* OpenVirtualFile.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = OpenVirtualFile.c; sourceTree = "<group>"; };
 		F5B2D0541CB73F12004F64BD /* OpenVirtualFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenVirtualFile.h; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 				9538E8DF1CEB282F00A8D983 /* getFileContent.h */,
 				9538E8E11CEB294300A8D983 /* setFileContent.c */,
 				9538E8E21CEB294300A8D983 /* setFileContent.h */,
+				F57F14041CECCE9C00D006B4 /* initSystemFile.c */,
+				F57F14051CECCE9C00D006B4 /* initSystemFile.h */,
 			);
 			name = ReturningFuncForModuleMerging;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				F5271F191CB5036C0028EBFD /* showDirectoryTree.c in Sources */,
 				F5271F221CB5049B0028EBFD /* getNewPos.c in Sources */,
 				F5D68D0A1C99CD57009E0D94 /* main.c in Sources */,
+				F57F14061CECCE9C00D006B4 /* initSystemFile.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
