@@ -43,7 +43,7 @@ bool mv(bool remove,char *arg1,char * arg2){
 	destination->filePoses[i+1] = -1;
 	fseek ( vfs , destination->pos , SEEK_SET );//write the destination directory
 	fwrite(destination,sizeof(dir),1,vfs);
-	if (remove) {
+	if (remove && targetDir->pos!=destination->pos) {
 		bool tmp = removeLeaf(targetDir,(desiredName[strlen(desiredName)-1] != '/')?desiredName:target->fileName);//remove the target file from the old dir
 		if (!tmp) {
 			printf("remove original file failed while moving\n");

@@ -232,7 +232,7 @@ int main(int argc, const char * argv[]) {
 				fclose(vfs);
 				break;
             default:
-                printf(ConsoleForeLightRed"%s:Unknown command!\n",command);
+                printf(ConsoleForeLightRed"%s:Unknown command!\n"ConsoleForeDefault,command);
                 break;
         }
     }
