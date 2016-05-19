@@ -17,28 +17,37 @@ bool removeLeaf(dir * thisdir,char * arg){
 			fseek ( vfs , thisdir->childDirPos , SEEK_SET );
 			fread(tmp,sizeof(dir),1,vfs);
 			if (strcmp(tmp->dirName,arg)==0){
-				dir * tmp2 = malloc(sizeof(dir));
-				fseek ( vfs , tmp->nextDirPos , SEEK_SET );
-				fread(tmp2,sizeof(dir),1,vfs);
-				thisdir->childDirPos=tmp2->pos;
+				if (tmp->nextDirPos==-1) {
+					thisdir->childDirPos=-1;
+				}else{
+					dir * tmp2 = malloc(sizeof(dir));
+					fseek ( vfs , tmp->nextDirPos , SEEK_SET );
+					fread(tmp2,sizeof(dir),1,vfs);
+					thisdir->childDirPos=tmp2->pos;
+					free(tmp2);
+				}
 				fseek ( vfs , thisdir->pos , SEEK_SET );
 				fwrite(thisdir,sizeof(vfile),1,vfs);
 				free(tmp);
 				return true;
 			}else{
 				while(tmp->nextDirPos != -1){
-					
 					dir * tmp2 = malloc(sizeof(dir));
 					fseek ( vfs , tmp->nextDirPos , SEEK_SET );
 					fread(tmp2,sizeof(dir),1,vfs);
 					if (strcmp(tmp2->dirName,arg)==0){
-						dir * tmp3 = malloc(sizeof(dir));
-						fseek ( vfs , tmp2->nextDirPos , SEEK_SET );
-						fread(tmp3,sizeof(dir),1,vfs);
-						tmp->nextDirPos=tmp3->pos;
-						fseek ( vfs , tmp->pos , SEEK_SET );
-						fwrite(tmp,sizeof(dir),1,vfs);
-						free(tmp);free(tmp2);free(tmp3);
+						if (tmp2->nextDirPos==-1) {
+							tmp->nextDirPos=-1;
+							free(tmp);free(tmp2);
+						}else{
+							dir * tmp3 = malloc(sizeof(dir));
+							fseek ( vfs , tmp2->nextDirPos , SEEK_SET );
+							fread(tmp3,sizeof(dir),1,vfs);
+							tmp->nextDirPos=tmp3->pos;
+							fseek ( vfs , tmp->pos , SEEK_SET );
+							fwrite(tmp,sizeof(dir),1,vfs);
+							free(tmp);free(tmp2);free(tmp3);
+						}
 						return true;
 					}
 					else{
@@ -47,6 +56,7 @@ bool removeLeaf(dir * thisdir,char * arg){
 						free(tmp2);
 					}
 				}
+				return false;
 			}
 		}
 	}else {

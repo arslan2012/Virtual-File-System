@@ -16,3 +16,9 @@ Improved file attributions,added basic move function.
 ###2016-05-17
 minor bug fix,preparing the code for module merging.
 optimized main.c and file handling
+###2016-05-18
+added initializing system disk function
+###2016-05-19
+fixed bug in main, current directory not refreshing
+fixed bug in remove, when next dir doesn't exist.
+minor data loss, rewrited some code

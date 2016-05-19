@@ -35,7 +35,13 @@ int main(int argc, const char * argv[]) {
     const char *root_password = "root";
     while (1) {
         char *command=malloc(sizeof(char)*COMLENTH);
+		if(strcmp(fileName,"\0")!=0 && currentDirectory != NULL && currentDirectory->dirName[0] != '\0'){
+			vfs = fopen(fileName, "r+b");
+			fseek ( vfs , currentDirectory->pos , SEEK_SET );
+			fread(currentDirectory,sizeof(dir),1,vfs);
+		}
         printdir(currentDirectory);
+		fclose(vfs);
         scanf("%s",command);
         int comNum = checkCommand(command);
         
