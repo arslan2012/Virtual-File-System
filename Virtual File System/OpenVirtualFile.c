@@ -28,7 +28,7 @@ bool openVirtualFile(dir * thisdir,char * arg){
 								tmp->fileContent[tmp->fileContentLenth-1]='\0';
 								tmp->fileContentLenth -= 1;
 							}
-						}else if (input != '\n'){
+						}else {
 							tmp->fileContent[tmp->fileContentLenth]=input;
 							tmp->fileContentLenth += 1;
 							tmp->fileContent[tmp->fileContentLenth]='\0';
