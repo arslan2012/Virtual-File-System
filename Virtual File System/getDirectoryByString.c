@@ -34,9 +34,9 @@ dir * getDirectoryByString(char * arg){
 				else if (tmp->nextDirPos != -1){
 					fseek ( vfs , tmp->nextDirPos , SEEK_SET );
 					fread(tmp,sizeof(dir),1,vfs);
-				}else{
-					return NULL;
-				}
+				}else if ((nexttok = strtok (NULL, "/"))==NULL){
+					return tmp;
+				}else return NULL;
 			}while (1);
 		}
 	}
@@ -69,9 +69,9 @@ vfile * getFileByString(char * arg){
 				else if (tmp->nextDirPos != -1){
 					fseek ( vfs , tmp->nextDirPos , SEEK_SET );
 					fread(tmp,sizeof(dir),1,vfs);
-				}else{
-					return NULL;
-				}
+				}else if ((nexttok = strtok (NULL, "/"))==NULL){
+					break;
+				}else return NULL;
 			}while (1);
 		}
 	}

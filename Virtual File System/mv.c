@@ -16,12 +16,11 @@ bool mv(bool remove,char *arg1,char * arg2){
 	strcpy(str1, arg1);//backup arg1,arg2 because strtok changes its value
 	strcpy(str2, arg2);
 	vfile * target = getFileByString(arg1);//get the file
-	if (target==NULL) return false;
 	dir * targetDir = getDirectoryByString(str1);//get the file directory
 	dir * destination = getDirectoryByString(arg2);//get the destination directory
+	if (target==NULL||targetDir==NULL||destination==NULL) return false;
 	char * desiredName = getSuffixByFullPath(str2);//get the desired name
-	int i = 0,targetPos;
-	for (i = 0; destination->filePoses[i]!=-1; i++);//find the last pos, so we can insert the new file pos there.
+	int i = 0,targetPos=-1;
 	
 	for (int j=0;targetDir->filePoses[j]!=-1;j++){//find the target file position
 		vfile * tmp = malloc(sizeof(vfile));
@@ -35,9 +34,11 @@ bool mv(bool remove,char *arg1,char * arg2){
 				fwrite(tmp,sizeof(dir),1,vfs);
 			}
 			free(tmp);
+			if (targetDir->pos==destination->pos) return true;
 			break;
 		}else free(tmp);
 	}
+	for (i = 0; destination->filePoses[i]!=-1; i++);//find the last pos, so we can insert the new file pos there.
 	if (targetPos==-1) return false;
 	destination->filePoses[i] =targetPos;//change the destination directory so that it know it has a new file
 	destination->filePoses[i+1] = -1;
