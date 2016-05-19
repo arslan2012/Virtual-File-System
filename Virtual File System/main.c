@@ -200,7 +200,7 @@ int main(int argc, const char * argv[]) {
                     scanf("%s",argument);
                     char *argument2=malloc(sizeof(char)*ARGLENTH);
                     scanf("%s",argument2);
-                    if (!mv(argument,argument2))
+                    if (!mv(true,argument,argument2))
                         printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
                 }else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
                 fclose(vfs);
@@ -219,6 +219,18 @@ int main(int argc, const char * argv[]) {
                 fclose(vfs);
                 strcpy(fileName, "\0");
                 break;
+			case 12://cp
+				if(strcmp(fileName,"\0")!=0){
+					vfs = fopen(fileName, "r+b");
+					char *argument=malloc(sizeof(char)*ARGLENTH);
+					scanf("%s",argument);
+					char *argument2=malloc(sizeof(char)*ARGLENTH);
+					scanf("%s",argument2);
+					if (!mv(false,argument,argument2))
+						printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
+				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+				fclose(vfs);
+				break;
             default:
                 printf(ConsoleForeLightRed"%s:Unknown command!\n",command);
                 break;

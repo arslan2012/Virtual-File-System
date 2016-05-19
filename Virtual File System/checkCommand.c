@@ -9,8 +9,8 @@
 #include "checkCommand.h"
 #include <string.h>
 int checkCommand(char * command){
-    char * a[] = {"man", "exit","su", "create", "mount", "ls","cd","touch","rm","mv","open","unmount"};
-    for (int i = 0; i<11; i++) {
+    char * a[] = {"man", "exit","su", "create", "mount", "ls","cd","touch","rm","mv","open","unmount","cp"};
+    for (int i = 0; i<13; i++) {
         if(strcmp(command,a[i])==0) return i;
     }
     return -1;

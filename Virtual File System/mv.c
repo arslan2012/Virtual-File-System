@@ -10,7 +10,7 @@
 #include "getDirectoryByString.h"
 #include "removeLeaf.h"
 
-bool mv(char *arg1,char * arg2){
+bool mv(bool remove,char *arg1,char * arg2){
 	char * str1 = malloc(sizeof(arg1));
 	char * str2 = malloc(sizeof(arg1));
 	strcpy(str1, arg1);//backup arg1,arg2 because strtok changes its value
@@ -29,7 +29,7 @@ bool mv(char *arg1,char * arg2){
 		fread(tmp,sizeof(dir),1,vfs);
 		if (strcmp(target->fileName, tmp->fileName)==0) {
 			targetPos=targetDir->filePoses[j];
-			if ((desiredName[strlen(desiredName)-1] != '/')) {//write the new name to file, if assigned.
+			if (desiredName[strlen(desiredName)-1] != '/') {//write the new name to file, if assigned.
 				strcpy(tmp->fileName,desiredName);
 				fseek ( vfs , targetDir->filePoses[j] , SEEK_SET );
 				fwrite(tmp,sizeof(dir),1,vfs);
@@ -43,6 +43,11 @@ bool mv(char *arg1,char * arg2){
 	destination->filePoses[i+1] = -1;
 	fseek ( vfs , destination->pos , SEEK_SET );//write the destination directory
 	fwrite(destination,sizeof(dir),1,vfs);
-	removeLeaf(targetDir,target->fileName);//remove the target file from the old dir
+	if (remove) {
+		bool tmp = removeLeaf(targetDir,(desiredName[strlen(desiredName)-1] != '/')?desiredName:target->fileName);//remove the target file from the old dir
+		if (!tmp) {
+			printf("remove original file failed while moving\n");
+		}
+	}
 	return true;
 }
