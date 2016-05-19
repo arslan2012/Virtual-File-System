@@ -14,7 +14,6 @@
 		F5271F161CB5030D0028EBFD /* printdir.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F141CB5030D0028EBFD /* printdir.c */; };
 		F5271F191CB5036C0028EBFD /* showDirectoryTree.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F171CB5036C0028EBFD /* showDirectoryTree.c */; };
 		F5271F1C1CB504770028EBFD /* setCurrentDirectory.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F1A1CB504770028EBFD /* setCurrentDirectory.c */; };
-		F5271F1F1CB5048B0028EBFD /* ifdir.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F1D1CB5048B0028EBFD /* ifdir.c */; };
 		F5271F221CB5049B0028EBFD /* getNewPos.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F201CB5049B0028EBFD /* getNewPos.c */; };
 		F5271F251CB504AD0028EBFD /* addLeaf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F231CB504AD0028EBFD /* addLeaf.c */; };
 		F5271F281CB504BD0028EBFD /* removeLeaf.c in Sources */ = {isa = PBXBuildFile; fileRef = F5271F261CB504BD0028EBFD /* removeLeaf.c */; };
@@ -51,8 +50,6 @@
 		F5271F181CB5036C0028EBFD /* showDirectoryTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = showDirectoryTree.h; sourceTree = "<group>"; };
 		F5271F1A1CB504770028EBFD /* setCurrentDirectory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = setCurrentDirectory.c; sourceTree = "<group>"; };
 		F5271F1B1CB504770028EBFD /* setCurrentDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setCurrentDirectory.h; sourceTree = "<group>"; };
-		F5271F1D1CB5048B0028EBFD /* ifdir.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ifdir.c; sourceTree = "<group>"; };
-		F5271F1E1CB5048B0028EBFD /* ifdir.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ifdir.h; sourceTree = "<group>"; };
 		F5271F201CB5049B0028EBFD /* getNewPos.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = getNewPos.c; sourceTree = "<group>"; };
 		F5271F211CB5049B0028EBFD /* getNewPos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getNewPos.h; sourceTree = "<group>"; };
 		F5271F231CB504AD0028EBFD /* addLeaf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = addLeaf.c; sourceTree = "<group>"; };
@@ -104,7 +101,6 @@
 				F5B2D0541CB73F12004F64BD /* OpenVirtualFile.h */,
 				F5271F111CB5015A0028EBFD /* getDirectoryByString.c */,
 				F5271F201CB5049B0028EBFD /* getNewPos.c */,
-				F5271F1D1CB5048B0028EBFD /* ifdir.c */,
 				F5271F291CB504CB0028EBFD /* mv.c */,
 				F5271F141CB5030D0028EBFD /* printdir.c */,
 				F5271F261CB504BD0028EBFD /* removeLeaf.c */,
@@ -113,7 +109,6 @@
 				F5271F241CB504AD0028EBFD /* addLeaf.h */,
 				F5271F121CB5015A0028EBFD /* getDirectoryByString.h */,
 				F5271F211CB5049B0028EBFD /* getNewPos.h */,
-				F5271F1E1CB5048B0028EBFD /* ifdir.h */,
 				F5271F2A1CB504CB0028EBFD /* mv.h */,
 				F5271F151CB5030D0028EBFD /* printdir.h */,
 				F5271F271CB504BD0028EBFD /* removeLeaf.h */,
@@ -212,7 +207,6 @@
 			files = (
 				9538E8E61CEB2F0C00A8D983 /* checkCommand.c in Sources */,
 				F5271F2B1CB504CB0028EBFD /* mv.c in Sources */,
-				F5271F1F1CB5048B0028EBFD /* ifdir.c in Sources */,
 				F5271F281CB504BD0028EBFD /* removeLeaf.c in Sources */,
 				F5B2D0551CB73F12004F64BD /* OpenVirtualFile.c in Sources */,
 				9538E8E01CEB282F00A8D983 /* getFileContent.c in Sources */,

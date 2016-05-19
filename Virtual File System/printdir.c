@@ -26,7 +26,7 @@ void printdir(dir * thisdir){
 		if (thisdir->parentDirPos == -1){
 			printf("%s",s);
 		}else {
-			fseek ( vfs , thisdir->parentDirPos , SEEK_SET );
+			fseek ( vfs , thisdir->parentDirPos , SEEK_SET );//get the name of its parent dir and prepand it to s
 			dir * tmp = malloc(sizeof(dir));
 			fread(tmp,sizeof(dir),1,vfs);
 			while (tmp->parentDirPos != -1){

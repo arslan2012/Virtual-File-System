@@ -14,7 +14,6 @@
 #include "showDirectoryTree.h"
 #include "setCurrentDirectory.h"
 #include "printdir.h"
-#include "ifdir.h"
 #include "getNewPos.h"
 #include "addLeaf.h"
 #include "removeLeaf.h"

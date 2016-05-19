@@ -10,12 +10,12 @@
 #include "ConsoleColour.h"
 bool initSystemFile(){
 	dir * MFT = malloc(sizeof(dir));
-	if( (vfs = fopen("System.vfs", "r+b")) == NULL ) {
-		if( (vfs = fopen("System.vfs", "w+b")) == NULL ) {
+	if( (vfs = fopen("System.vfs", "r+b")) == NULL ) {//try to open
+		if( (vfs = fopen("System.vfs", "w+b")) == NULL ) {//if opening failed,try to create a new one
 			perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
 			return false;
 		}
-		dir * MFT = malloc(sizeof(dir));
+		dir * MFT = malloc(sizeof(dir));//create new master file tree.
 		strcpy(MFT->dirName,"/");
 		MFT->pos = sizeof(int);
 		MFT->parentDirPos = -1;
@@ -27,6 +27,7 @@ bool initSystemFile(){
 		fwrite(&lastpos,sizeof(int),1,vfs);
 		fseek ( vfs , sizeof(int) , SEEK_SET );
 		if(fwrite(MFT,sizeof(dir),1,vfs)==1){
+			strcpy(fileName, "System.vfs");
 			fclose(vfs);
 			return true;
 		}else{
@@ -34,10 +35,11 @@ bool initSystemFile(){
 			fclose(vfs);
 			return false;
 		}
-	}else {
+	}else {//if opening succeeded,check if MFT is healthy
 		fseek ( vfs, sizeof(int), SEEK_SET);
 		if (fread(MFT,sizeof(dir),1,vfs)==1){
 			if (strcmp(MFT->dirName, "/")==0){
+				strcpy(fileName, "System.vfs");
 				fclose(vfs);
 				return true;
 			}

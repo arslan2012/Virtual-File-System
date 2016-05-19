@@ -7,7 +7,7 @@
 	//
 
 #include "getNewPos.h"
-int getNewPos(bool ifdir){
+int getNewPos(bool ifdir){//return the lastpos, and add the new size of what we just created to the lastpos int
 	fseek(vfs, 0, SEEK_SET);
 	int lastpos;
 	fread(&lastpos, sizeof(int), 1, vfs);

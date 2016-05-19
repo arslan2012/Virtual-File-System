@@ -8,7 +8,7 @@
 
 #include "setCurrentDirectory.h"
 bool setCurrentDirectory(dir ** currentDirectory,char * arg){
-	if (strcmp(arg, "..")==0){
+	if (strcmp(arg, "..")==0){//if argument is .. means going back to parent dir
 		if((*(currentDirectory))->parentDirPos != -1){
 			fseek ( vfs , (*(currentDirectory))->parentDirPos , SEEK_SET );
 			fread(*currentDirectory,sizeof(dir),1,vfs);

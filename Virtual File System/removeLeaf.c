@@ -7,16 +7,15 @@
 	//
 
 #include "removeLeaf.h"
-#include "ifdir.h"
 bool removeLeaf(dir * thisdir,char * arg){
-	if (ifdir(arg)){
+	if (arg[strlen(arg)-1] == '/'){//check if this string represents a dir by checking if it has '/' at the end
 		dir * tmp = malloc(sizeof(dir));
-		if (thisdir->childDirPos == -1){
+		if (thisdir->childDirPos == -1){//no child directory nothing to remove!
 			return false;
 		}else {
 			fseek ( vfs , thisdir->childDirPos , SEEK_SET );
 			fread(tmp,sizeof(dir),1,vfs);
-			if (strcmp(tmp->dirName,arg)==0){
+			if (strcmp(tmp->dirName,arg)==0){//check if child dir is the dir needed to remove
 				if (tmp->nextDirPos==-1) {
 					thisdir->childDirPos=-1;
 				}else{
@@ -31,7 +30,7 @@ bool removeLeaf(dir * thisdir,char * arg){
 				free(tmp);
 				return true;
 			}else{
-				while(tmp->nextDirPos != -1){
+				while(tmp->nextDirPos != -1){//find the dir needed to remove in nextdir list
 					dir * tmp2 = malloc(sizeof(dir));
 					fseek ( vfs , tmp->nextDirPos , SEEK_SET );
 					fread(tmp2,sizeof(dir),1,vfs);
