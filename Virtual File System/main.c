@@ -30,6 +30,7 @@ int superuser = 0;
 
 int main(int argc, const char * argv[]) {
 	dir * currentDirectory = malloc(sizeof(dir));
+	strcpy(currentDirectory->dirName,"\0");
 	if (strcmp(fileName, "\0") != 0) {
 		if ((vfs = fopen(fileName, "r+b")) == NULL) {
 			perror("Fatal Error");
@@ -236,6 +237,7 @@ int main(int argc, const char * argv[]) {
 			case 11://unmount
 				if (vfs != NULL) fclose(vfs);
 				strcpy(fileName, "\0");
+				strcpy(currentDirectory->dirName,"\0");
 				break;
 			case 12://cp
 				if(strcmp(fileName,"\0")!=0){
