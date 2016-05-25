@@ -9,7 +9,7 @@
 #ifndef ConsoleColour_h
 #define ConsoleColour_h
 
-#ifdef _WIN32 || _WIN64 // Disable colouring for windows because windows doesnt support it!
+#if defined(_WIN32) || defined(_WIN64) // Disable colouring for windows because windows doesnt support it!
 
 #define ConsoleattributesOff "" //All attributes off(color at startup)
 #define ConsoleBold "" //Bold on(enable foreground intensity)
