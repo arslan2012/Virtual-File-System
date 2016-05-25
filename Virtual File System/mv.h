@@ -10,6 +10,6 @@
 #define mv_h
 
 #include "main.h"
-bool mv(bool,char *,char *);
+_bool mv(_bool,char *,char *);
 
 #endif /* mv_h */

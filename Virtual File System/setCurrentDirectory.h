@@ -10,6 +10,6 @@
 #define setCurrentDirectory_h
 
 #include "main.h"
-bool setCurrentDirectory(dir **,char *);
+_bool setCurrentDirectory(dir **,char *);
 
 #endif /* setCurrentDirectory_h */

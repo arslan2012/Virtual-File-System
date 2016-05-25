@@ -8,9 +8,9 @@
 
 #include "OpenVirtualFile.h"
 
-bool openVirtualFile(dir * thisdir,char * arg){
+_bool openVirtualFile(dir * thisdir,char * arg){
 	if (thisdir->filePoses[0]==-1){
-		return false;
+		return _false;
 	}else {
 		for (int i = 0; thisdir->filePoses[i]!=-1;i++){
 			vfile *tmp = malloc(sizeof(vfile));
@@ -40,11 +40,11 @@ bool openVirtualFile(dir * thisdir,char * arg){
 				}else{
 					printf("%s",tmp->fileContent);
 				}
-				return true;
+				return _true;
 			}else{
 				free(tmp);
 			}
 		}
 	}
-	return false;
+	return _false;
 }

@@ -20,11 +20,11 @@
 extern FILE *vfs;
 extern char fileName[10];
 extern int superuser;
-typedef enum bool
+typedef enum _bool
 {
-	false,
-	true
-}bool;
+	_false,
+	_true
+}_bool;
 typedef enum attribute
 {
 	readonly,

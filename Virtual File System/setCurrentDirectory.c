@@ -7,13 +7,13 @@
 	//
 
 #include "setCurrentDirectory.h"
-bool setCurrentDirectory(dir ** currentDirectory,char * arg){
+_bool setCurrentDirectory(dir ** currentDirectory,char * arg){
 	if (strcmp(arg, "..")==0){//if argument is .. means going back to parent dir
 		if((*(currentDirectory))->parentDirPos != -1){
 			fseek ( vfs , (*(currentDirectory))->parentDirPos , SEEK_SET );
 			fread(*currentDirectory,sizeof(dir),1,vfs);
-			return true;
-		}else return false;
+			return _true;
+		}else return _false;
 		
 	}
 	if((*(currentDirectory))->childDirPos != -1){
@@ -23,7 +23,7 @@ bool setCurrentDirectory(dir ** currentDirectory,char * arg){
 		do{
 			if (strcmp(tmp->dirName,arg)==0){
 				*currentDirectory = tmp;
-				return true;
+				return _true;
 			}
 			if (tmp->nextDirPos == -1) {
 				break;
@@ -34,5 +34,5 @@ bool setCurrentDirectory(dir ** currentDirectory,char * arg){
 		}while (1);
 		free(tmp);
 	}
-	return false;
+	return _false;
 }

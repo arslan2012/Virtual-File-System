@@ -9,7 +9,7 @@
 #include "getDirectoryByString.h"
 
 dir * getDirectoryByString(char * arg){
-	bool isDirString= (arg[strlen(arg)-1] == '/')?true:false;//check if this string represents a dir by checking if it has '/' at the end
+	_bool isDirString= (arg[strlen(arg)-1] == '/')?_true:_false;//check if this string represents a dir by checking if it has '/' at the end
 	char *nexttok= strtok (arg,"/");//cut the arg by the symbol '/'
 	char *tok = malloc(sizeof(char)*10);
 	dir * tmp = malloc(sizeof(dir));
@@ -43,7 +43,7 @@ dir * getDirectoryByString(char * arg){
 	return tmp;//just return the last dir we found
 }
 vfile * getFileByString(char * arg){
-	bool isDirString= (arg[strlen(arg)-1] == '/')?true:false;//check if this string represents a dir by checking if it has '/' at the end
+	_bool isDirString= (arg[strlen(arg)-1] == '/')?_true:_false;//check if this string represents a dir by checking if it has '/' at the end
 	if (isDirString) return NULL;//if this is a dir return null
 	char *nexttok= strtok (arg,"/");//cut the arg by the symbol '/'
 	char *tok = malloc(sizeof(char)*10);
@@ -79,7 +79,7 @@ vfile * getFileByString(char * arg){
 		for (int i = 0; tmp->filePoses[i]!=-1; i++) {
 			vfile * tmpfile = malloc(sizeof(vfile));
 			fseek ( vfs , tmp->filePoses[i] , SEEK_SET );
-			fread(tmpfile,sizeof(dir),1,vfs);
+			fread(tmpfile,sizeof(vfile),1,vfs);
 			if (strcmp(tok, tmpfile->fileName)==0) {
 				return tmpfile;
 			}else free(tmpfile);

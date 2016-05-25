@@ -7,11 +7,11 @@
 	//
 
 #include "removeLeaf.h"
-bool removeLeaf(dir * thisdir,char * arg){
+_bool removeLeaf(dir * thisdir,char * arg){
 	if (arg[strlen(arg)-1] == '/'){//check if this string represents a dir by checking if it has '/' at the end
 		dir * tmp = malloc(sizeof(dir));
 		if (thisdir->childDirPos == -1){//no child directory nothing to remove!
-			return false;
+			return _false;
 		}else {
 			fseek ( vfs , thisdir->childDirPos , SEEK_SET );
 			fread(tmp,sizeof(dir),1,vfs);
@@ -28,7 +28,7 @@ bool removeLeaf(dir * thisdir,char * arg){
 				fseek ( vfs , thisdir->pos , SEEK_SET );
 				fwrite(thisdir,sizeof(vfile),1,vfs);
 				free(tmp);
-				return true;
+				return _true;
 			}else{
 				while(tmp->nextDirPos != -1){//find the dir needed to remove in nextdir list
 					dir * tmp2 = malloc(sizeof(dir));
@@ -47,7 +47,7 @@ bool removeLeaf(dir * thisdir,char * arg){
 							fwrite(tmp,sizeof(dir),1,vfs);
 							free(tmp);free(tmp2);free(tmp3);
 						}
-						return true;
+						return _true;
 					}
 					else{
 						fseek ( vfs , tmp->nextDirPos , SEEK_SET );
@@ -55,12 +55,12 @@ bool removeLeaf(dir * thisdir,char * arg){
 						free(tmp2);
 					}
 				}
-				return false;
+				return _false;
 			}
 		}
 	}else {
 		if (thisdir->filePoses[0]==-1){
-			return false;
+			return _false;
 		}else {
 			for (int i = 0; thisdir->filePoses[i]!=-1;i++){
 				vfile *tmp = malloc(sizeof(vfile));
@@ -68,7 +68,7 @@ bool removeLeaf(dir * thisdir,char * arg){
 				fread(tmp, sizeof(vfile), 1, vfs);
 				if(strcmp(tmp->fileName,arg)==0){
 					if (tmp->attribute==readonly && superuser == 0) {
-						return false;
+						return _false;
 					}
 					for(int j=i; thisdir->filePoses[j]!=-1;j++){
 						thisdir->filePoses[j]=thisdir->filePoses[j+1];
@@ -76,12 +76,12 @@ bool removeLeaf(dir * thisdir,char * arg){
 					fseek ( vfs , thisdir->pos , SEEK_SET );
 					fwrite(thisdir,sizeof(vfile),1,vfs);
 					free(tmp);
-					return true;
+					return _true;
 				}else{
 					free(tmp);
 				}
 			}
 		}
 	}
-	return false;
+	return _false;
 }

@@ -10,5 +10,5 @@
 #define setFileContent_h
 
 #include "main.h"
-bool setFileContent(char *, char *);
+_bool setFileContent(char *, char *);
 #endif /* setFileContent_h */

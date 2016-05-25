@@ -8,7 +8,7 @@
 
 #include "addLeaf.h"
 #include "getNewPos.h"
-bool addLeaf(dir * thisdir,char * arg){
+_bool addLeaf(dir * thisdir,char * arg){
 	if (arg[strlen(arg)-1] == '/'){//check if creating a directory or file
 		dir * new = malloc(sizeof(dir));//create a new directory
 		strcpy(new->dirName,arg);
@@ -17,7 +17,7 @@ bool addLeaf(dir * thisdir,char * arg){
 		new->nextDirPos = -1;
 		new->filePoses[0] = -1;
 		if (thisdir->childDirPos == -1){//change the parent directory so that it know it has a new child
-			int pos = getNewPos(true);
+			int pos = getNewPos(_true);
 			new->pos = pos;
 			fseek ( vfs , new->pos , SEEK_SET );
 			fwrite(new,sizeof(dir),1,vfs);
@@ -31,16 +31,16 @@ bool addLeaf(dir * thisdir,char * arg){
 			while(tmp->nextDirPos != -1){
 				if(strcmp(tmp->dirName,arg)==0){
 					free(new);
-					return false;
+					return _false;
 				}
 				fseek ( vfs , tmp->nextDirPos , SEEK_SET );
 				fread(tmp,sizeof(dir),1,vfs);
 			}
 			if(strcmp(tmp->dirName,arg)==0){
 				free(new);
-				return false;
+				return _false;
 			}
-			int pos = getNewPos(true);
+			int pos = getNewPos(_true);
 			new->pos = pos;
 			fseek ( vfs , new->pos , SEEK_SET );//write the new dir to disk
 			fwrite(new,sizeof(dir),1,vfs);
@@ -67,11 +67,11 @@ bool addLeaf(dir * thisdir,char * arg){
 			fread(tmp, sizeof(vfile), 1, vfs);
 			if (strcmp(tmp->fileName,arg)==0){
 				free(tmp);
-				return false;
+				return _false;
 			}
 			free(tmp);
 		}
-		int pos = getNewPos(false);
+		int pos = getNewPos(_false);
 		fseek ( vfs , pos , SEEK_SET );//write the new file to disk
 		fwrite(new,sizeof(vfile),1,vfs);
 		thisdir->filePoses[i] =pos;//change the parent directory so that it know it has a new file
@@ -80,5 +80,5 @@ bool addLeaf(dir * thisdir,char * arg){
 		fwrite(thisdir,sizeof(vfile),1,vfs);
 		free(new);
 	}
-	return true;
+	return _true;
 }

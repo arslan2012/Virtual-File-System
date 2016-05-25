@@ -10,6 +10,6 @@
 #define addLeaf_h
 
 #include "main.h"
-bool addLeaf(dir *,char *);
+_bool addLeaf(dir *,char *);
 
 #endif /* addLeaf_h */

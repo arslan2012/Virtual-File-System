@@ -24,3 +24,5 @@ fixed bug in main, current directory not refreshing.
 fixed bug in remove, when next dir doesn't exist.
 
 minor data loss, rewrote some code.
+###2016-05-25
+generally adressing issue found while porting to Visual Studio

@@ -10,6 +10,6 @@
 #define removeLeaf_h
 
 #include "main.h"
-bool removeLeaf(dir *,char *);
+_bool removeLeaf(dir *,char *);
 
 #endif /* removeLeaf_h */

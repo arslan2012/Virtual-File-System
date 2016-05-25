@@ -10,6 +10,6 @@
 #define getNewPos_h
 
 #include "main.h"
-int getNewPos(bool);
+int getNewPos(_bool);
 
 #endif /* getNewPos_h */

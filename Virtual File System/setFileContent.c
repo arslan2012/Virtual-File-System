@@ -9,7 +9,7 @@
 #include "setFileContent.h"
 #include "getDirectoryByString.h"
 #include "addLeaf.h"
-bool setFileContent(char * fullFileName, char * newFileContent){
+_bool setFileContent(char * fullFileName, char * newFileContent){
 	if(strcmp(fileName,"\0")!=0){//if file system has been mounted(init has been executed)
 		vfs = fopen(fileName, "r+b");
 		char * str = malloc(sizeof(fullFileName));
@@ -34,7 +34,7 @@ bool setFileContent(char * fullFileName, char * newFileContent){
 		target->fileContentLenth=(int)strlen(newFileContent);
 		fseek ( vfs , targetPos , SEEK_SET );
 		fwrite(target,sizeof(vfile),1,vfs);
-		fclose(vfs);
-		return true;
-	}else return false;
+		if (vfs != NULL) fclose(vfs);
+		return _true;
+	}else return _false;
 }

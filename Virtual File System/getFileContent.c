@@ -12,7 +12,7 @@ char * getFileContent(char * fullFileName){
 	if(strcmp(fileName,"\0")!=0){//if file system has been mounted(init has been executed)
 		vfs = fopen(fileName, "r+b");
 		vfile * target = getFileByString(fullFileName);
-		fclose(vfs);
+		if (vfs != NULL) fclose(vfs);
 		if (target!=NULL)//if file exist.
 			return target->fileContent;
 		else return "\0";

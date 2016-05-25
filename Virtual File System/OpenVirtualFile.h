@@ -10,6 +10,6 @@
 #define OpenVirtualFile_h
 
 #include "main.h"
-bool openVirtualFile(dir *,char *);
+_bool openVirtualFile(dir *,char *);
 
 #endif /* OpenVirtualFile_h */

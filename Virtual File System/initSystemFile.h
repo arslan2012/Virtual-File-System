@@ -10,6 +10,6 @@
 #define initSystemFile_h
 
 #include "main.h"
-bool initSystemFile();
+_bool initSystemFile();
 
 #endif /* initSystemFile_h */
