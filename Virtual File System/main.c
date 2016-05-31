@@ -97,7 +97,8 @@ int main(int argc, const char * argv[]) {
 				char *argument=malloc(sizeof(char)*ARGLENTH);
 				scanf("%s",argument);
 				if( (vfs = fopen(argument, "w+b")) == NULL ) {
-					perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+					perror(ConsoleForeLightRed"Fatal Error");
+					printf(ConsoleForeDefault);
 					break;
 				}
 				dir * MFT = malloc(sizeof(dir));
@@ -116,7 +117,8 @@ int main(int argc, const char * argv[]) {
 					strcpy(fileName, argument);
 					if (vfs != NULL) fclose(vfs);
 				}else{
-					perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+					perror(ConsoleForeLightRed"Fatal Error");
+					printf(ConsoleForeDefault);
 					if (vfs != NULL) fclose(vfs);
 				}
 				
@@ -124,14 +126,15 @@ int main(int argc, const char * argv[]) {
 			}
 			case 4:{//mount
 				if (strcmp(fileName, "\0") != 0) {
-					printf("There is a file system already mounted");
+					printf(ConsoleForeLightRed"There is a file system already mounted"ConsoleForeDefault);
 					break;
 				}
 				char *argument=malloc(sizeof(char)*ARGLENTH);
 				scanf("%s",argument);
 				dir * MFT = malloc(sizeof(dir));
 				if( (vfs = fopen(argument, "r+b")) == NULL ) {
-					perror(ConsoleForeLightRed"Fatal Error"ConsoleForeDefault);
+					perror(ConsoleForeLightRed"Fatal Error");
+					printf(ConsoleForeDefault);
 					break;
 				}
 				fseek ( vfs, sizeof(int), SEEK_SET);
@@ -146,7 +149,8 @@ int main(int argc, const char * argv[]) {
 						if (vfs != NULL) fclose(vfs);
 					}
 				}else{
-					perror("Fatal Error"ConsoleForeDefault);
+					perror(ConsoleForeLightRed"Fatal Error");
+					printf(ConsoleForeDefault);
 					if (vfs != NULL) fclose(vfs);
 					return 0;
 				}
@@ -157,104 +161,108 @@ int main(int argc, const char * argv[]) {
 					vfs = fopen(fileName, "r+b");
 					char *argument=malloc(sizeof(char)*ARGLENTH);
 					scanf("%99[^\n]%*c",argument);
-					if (strcmp(argument,"")==0) {
-						showDirectoryTree(currentDirectory);
-					}else{
-						dir * pointedDir = getDirectoryByString(argument+1);
-						if (pointedDir != NULL)
-							showDirectoryTree(pointedDir);
-						else printf(ConsoleForeLightRed"The directory you pointed doesn't exist\n"ConsoleForeDefault);
-					}
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 6://cd
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					if (!setCurrentDirectory(&currentDirectory,argument))
-						printf(ConsoleForeLightRed"ERROR:directory doesn't exist\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 7://touch
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					char *c = argument;
-					_bool flag = _true;
-					while (*c)
-					{
-						if (strchr(invalid_characters, *c))
-						{
-							printf(ConsoleForeLightRed"Invalid character in name"ConsoleForeDefault);
-							flag = _false;
-							break;
+#if defined(_WIN32) || defined(_WIN64)
+					if (argument[strlen(argument)-1] == '/') {
+#else
+						if (strcmp(argument,"")==0) {//this if clause doesn't work under visual studio so i have to do this
+#endif
+							showDirectoryTree(currentDirectory);
+						}else{
+							dir * pointedDir = getDirectoryByString(argument+1);
+							if (pointedDir != NULL)
+								showDirectoryTree(pointedDir);
+							else printf(ConsoleForeLightRed"The directory you pointed doesn't exist\n"ConsoleForeDefault);
 						}
-						
-						c++;
-					}
-					if (flag)
-						if (!addLeaf(currentDirectory,argument))
-							printf(ConsoleForeLightRed"ERROR:cannot create\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 8://rm
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					if (!removeLeaf(currentDirectory,argument))
-						printf(ConsoleForeLightRed"ERROR:cannot remove\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 9://mv
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					char *argument2=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument2);
-					if (!mv(_true,argument,argument2))
-						printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 10://open
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					if (!openVirtualFile(currentDirectory,argument))
-						printf(ConsoleForeLightRed"ERROR:open failed\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			case 11://unmount
-				if (vfs != NULL) fclose(vfs);
-				strcpy(fileName, "\0");
-				strcpy(currentDirectory->dirName,"\0");
-				break;
-			case 12://cp
-				if(strcmp(fileName,"\0")!=0){
-					vfs = fopen(fileName, "r+b");
-					char *argument=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument);
-					char *argument2=malloc(sizeof(char)*ARGLENTH);
-					scanf("%s",argument2);
-					if (!mv(_false,argument,argument2))
-						printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
-				}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
-				if (vfs != NULL) fclose(vfs);
-				break;
-			default:
-				printf(ConsoleForeLightRed"%s:Unknown command!\n"ConsoleForeDefault,command);
-				break;
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 6://cd
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						if (!setCurrentDirectory(&currentDirectory,argument))
+							printf(ConsoleForeLightRed"ERROR:directory doesn't exist\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 7://touch
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						char *c = argument;
+						_bool flag = _true;
+						while (*c)
+						{
+							if (strchr(invalid_characters, *c))
+							{
+								printf(ConsoleForeLightRed"Invalid character in name"ConsoleForeDefault);
+								flag = _false;
+								break;
+							}
+							
+							c++;
+						}
+						if (flag)
+							if (!addLeaf(currentDirectory,argument))
+								printf(ConsoleForeLightRed"ERROR:cannot create\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 8://rm
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						if (!removeLeaf(currentDirectory,argument))
+							printf(ConsoleForeLightRed"ERROR:cannot remove\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 9://mv
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						char *argument2=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument2);
+						if (!mv(_true,argument,argument2))
+							printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 10://open
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						if (!openVirtualFile(currentDirectory,argument))
+							printf(ConsoleForeLightRed"ERROR:open failed\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				case 11://unmount
+					if (vfs != NULL) fclose(vfs);
+					strcpy(fileName, "\0");
+					strcpy(currentDirectory->dirName,"\0");
+					break;
+				case 12://cp
+					if(strcmp(fileName,"\0")!=0){
+						vfs = fopen(fileName, "r+b");
+						char *argument=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument);
+						char *argument2=malloc(sizeof(char)*ARGLENTH);
+						scanf("%s",argument2);
+						if (!mv(_false,argument,argument2))
+							printf(ConsoleForeLightRed"ERROR: There is a file with same name\n"ConsoleForeDefault);
+					}else printf(ConsoleForeLightRed"no file system mounted!\n"ConsoleForeDefault);
+					if (vfs != NULL) fclose(vfs);
+					break;
+				default:
+					printf(ConsoleForeLightRed"%s:Unknown command!\n"ConsoleForeDefault,command);
+					break;
+				}
 		}
+		return 0;
 	}
-	return 0;
-}
